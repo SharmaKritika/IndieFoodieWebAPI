@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -11,13 +12,23 @@ namespace IndieFoodieWebAPI
         {
             // Web API configuration and services
             config.EnableCors();
+
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                name: "MenuItemsApi",
+                routeTemplate: "api/{controller}/{restaurantId}/menuItems",
+                defaults: new { action = "GetMenuItems"}
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "ResturantsApi",
+                routeTemplate: "api/{controller}",
+                defaults: new { action = "GetRestaurants" }
             );
         }
     }
