@@ -14,7 +14,7 @@ using System.Web.Http.Description;
 namespace IndieFoodieWebAPI.Controllers
 {
     [EnableCors(origins: "http://indiefoodie.azurewebsites.net", headers: "*", methods: "*")]
-
+    [ExceptionHandling]
     //[EnableCors(origins: "http://localhost:3000", headers: "*", methods: "*")]
     public class RestaurantsController : ApiController
     {
